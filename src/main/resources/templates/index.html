@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Quản lý Bác sĩ - Backend</title>
+        <style>
+            body { font-family: sans-serif; margin: 20px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+            th { background-color: #2c3e50; color: white; }
+            img { width: 50px; height: 50px; border-radius: 50%; }
+        </style>
+    </head>
+    <body>
+
+        <h2>HỆ THỐNG QUẢN LÝ BÁC SĨ</h2>
+
+        <form action="/med-manager/search" method="get">
+            <input type="text" name="phone" placeholder="Nhập số điện thoại...">
+            <button type="submit">Tìm kiếm</button>
+            <a href="/med-manager/doctors"><button type="button">Hiển thị tất cả</button></a>
+        </form>
+
+        <table>
+            <tr>
+                <th>Mã BS</th>
+                <th>Ảnh</th>
+                <th>Tên Bác sĩ</th>
+                <th>Chuyên khoa</th>
+                <th>SĐT</th>
+            </tr>
+
+            <tr th:each="doc : ${danhSachBS}">
+                <td th:text="${doc.id}"></td>
+                <td><img th:src="@{'/images/' + ${doc.avatar}}" alt="Avatar"></td>
+                <td th:text="${doc.name}"></td>
+                <td th:text="${doc.specialty}"></td>
+                <td th:text="${doc.phone}"></td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(danhSachBS)}">
+                <td colspan="5" style="text-align: center; color: red;">Không có dữ liệu!</td>
+            </tr>
+        </table>
+
+    </body>
+</html>
